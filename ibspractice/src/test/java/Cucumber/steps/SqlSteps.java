@@ -1,17 +1,12 @@
-package org.ibs;
+package Cucumber.steps;
 
 import io.cucumber.java.ru.И;
-import org.junit.jupiter.api.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class IbsTest {
+public class SqlSteps {
 
     private static Connection connection;
 
@@ -79,8 +74,7 @@ public class IbsTest {
         }
     }
 
-    @Test
-    @DisplayName("Проверка текущего состояния таблицы")
+    @И("Проверка удаления тестовых данных")
     void testCheckTableState() throws SQLException {
         try (Statement stmt = connection.createStatement()) {
             // Выполняем запрос для получения всех записей из таблицы FOOD
@@ -96,7 +90,7 @@ public class IbsTest {
         }
     }
 
-    @AfterAll
+    @И("Прерываем соединение с БД")
     static void tearDown() throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.close();
